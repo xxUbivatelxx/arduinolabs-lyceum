@@ -38,7 +38,6 @@ pinMode(PIN_E,OUTPUT);
 pinMode(PIN_F,OUTPUT);
 pinMode(PIN_G,OUTPUT);
 pinMode(PIN_P,OUTPUT);
-random
 }
 
 void loop() {
