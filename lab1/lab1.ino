@@ -13,6 +13,8 @@
 #define PIN_F 7
 #define PIN_G 8
 #define PIN_P 9
+#define BUTTON_UP 11
+#define BUTTON_DOWN 10
 
 int number=0;
 
@@ -38,13 +40,18 @@ pinMode(PIN_E,OUTPUT);
 pinMode(PIN_F,OUTPUT);
 pinMode(PIN_G,OUTPUT);
 pinMode(PIN_P,OUTPUT);
+pinMode(BUTTON_DOWN,INPUT_PULLUP);
+pinMode(BUTTON_UP,INPUT_PULLUP);
 }
 
 void loop() {
+  if(digitalRead(BUTTON_UP)) number+=1;
+  if(digitalRead(BUTTON_DOWN)) number-=1;
   showDigit(number);
-  delay(1000);
-  number++;
+  delay(250);
+ // number++;
   if (number == 10) number=0;
+  if (number == -1) number=9;
 } 
 void showDigit(int i){
     digitalWrite (PIN_A, digit[i]&(1<<0));
