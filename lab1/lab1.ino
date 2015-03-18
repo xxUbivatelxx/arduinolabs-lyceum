@@ -5,6 +5,9 @@
 *     Дата создания: 04.03.2015
 */
 
+
+#include <Bounce.h>
+
 #define PIN_A 2
 #define PIN_B 3
 #define PIN_C 4
@@ -13,10 +16,13 @@
 #define PIN_F 7
 #define PIN_G 8
 #define PIN_P 9
-#define BUTTON_UP 11
-#define BUTTON_DOWN 10
+#define BUTTON_UP 10
+#define BUTTON_DOWN 11
+
 
 int number=0;
+Bounce bouncerUp = Bounce( BUTTON_UP,5 );
+Bounce bouncerDown = Bounce( BUTTON_DOWN,5 );
 
 byte digit[11] = {
   0b00111111,
@@ -45,10 +51,21 @@ pinMode(BUTTON_UP,INPUT_PULLUP);
 }
 
 void loop() {
-  if(digitalRead(BUTTON_UP)) number+=1;
-  if(digitalRead(BUTTON_DOWN)) number-=1;
+  if(bouncerUp.update()){
+    if(bouncerUp.read() == LOW){
+      number+=1;
+    }
+  }
+
+  if(bouncerDown.update()){
+    if(bouncerDown.read() == LOW){
+      number-=1;
+    }
+  }
+
+ // if(digitalRead(BUTTON_UP)) number+=1;
+ // if(digitalRead(BUTTON_DOWN)) number-=1;
   showDigit(number);
-  delay(250);
  // number++;
   if (number == 10) number=0;
   if (number == -1) number=9;
